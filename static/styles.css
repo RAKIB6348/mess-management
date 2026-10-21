@@ -106,12 +106,13 @@ body {
   top: 24px;
 }
 
-/* Label floats up when focused/filled; always up for select + date */
+/* Label floats up when focused/filled; select floats when filled or focused */
 .fform .form-group input:focus + label,
 .fform .form-group input:not(:placeholder-shown) + label,
 .fform .form-group textarea:focus + label,
 .fform .form-group textarea:not(:placeholder-shown) + label,
-.fform .form-group select + label,
+.fform .form-group select:focus + label,
+.fform .form-group select.filled + label,
 .fform .form-group input[type="date"] + label {
   top: 0;
   font-size: 12px;

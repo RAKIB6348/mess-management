@@ -24,3 +24,8 @@ class ExpenseForm(forms.ModelForm):
             "paid_by": forms.Select(),
             "note": forms.TextInput(attrs={"placeholder": " "}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Blank empty option so the select looks empty (like the date field).
+        self.fields["paid_by"].empty_label = " "

@@ -23,3 +23,8 @@ class MealForm(forms.ModelForm):
             ),
             "note": forms.TextInput(attrs={"placeholder": " "}),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # Blank empty option so the select looks empty (like the date field).
+        self.fields["member"].empty_label = " "

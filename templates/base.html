@@ -56,5 +56,13 @@
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Floating labels for selects: mark as filled when a value is chosen.
+    document.querySelectorAll('.fform select').forEach(function (s) {
+      function sync() { s.classList.toggle('filled', s.value !== ''); }
+      sync();
+      s.addEventListener('change', sync);
+    });
+  </script>
 </body>
 </html>
