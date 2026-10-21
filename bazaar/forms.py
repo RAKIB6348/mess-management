@@ -9,12 +9,12 @@ class ExpenseForm(forms.ModelForm):
         fields = ["date", "title", "amount", "paid_by", "note"]
         widgets = {
             "date": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"}
+                attrs={"type": "date", "class": "flat"}
             ),
-            "title": forms.TextInput(attrs={"class": "form-control"}),
+            "title": forms.TextInput(attrs={"placeholder": " "}),
             "amount": forms.NumberInput(
-                attrs={"class": "form-control", "step": "0.01", "min": "0"}
+                attrs={"class": "flat", "step": "0.01", "min": "0"}
             ),
-            "paid_by": forms.Select(attrs={"class": "form-select"}),
-            "note": forms.TextInput(attrs={"class": "form-control"}),
+            "paid_by": forms.Select(),
+            "note": forms.TextInput(attrs={"placeholder": " "}),
         }

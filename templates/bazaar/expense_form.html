@@ -1,23 +1,58 @@
 {% extends "base.html" %}
-{% block title %}{% if expense %}Edit{% else %}Add{% endif %} Expense{% endblock %}
+{% block title %}{% if expense %}Edit{% else %}Add{% endif %} Expense &mdash; Mess Manager{% endblock %}
 {% block content %}
-<h1 class="h3 mb-3">{% if expense %}Edit Expense{% else %}Add Expense{% endif %}</h1>
-<div class="card shadow-sm">
-  <div class="card-body">
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="mb-3">
-          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}
-            <div class="form-text text-danger">{{ field.errors|join:" " }}</div>
-          {% endif %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 fform">
+    <div class="form-card">
+      <header class="brand">
+        <div class="brand-logo">&#128722;</div>
+        <h1 class="brand-title">{% if expense %}Edit Expense{% else %}Add Expense{% endif %}</h1>
+        <p class="brand-subtitle">Record a bazaar purchase</p>
+      </header>
+
+      {% if form.errors %}
+        <div class="alert-error">Please fix the errors below.</div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.date.id_for_label }}">Date</label>
+          {{ form.date }}
+          {% if form.date.errors %}<div class="field-error">{{ form.date.errors|join:", " }}</div>{% endif %}
         </div>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a href="{% url 'expense_list' %}" class="btn btn-outline-secondary">Cancel</a>
-    </form>
+
+        <div class="form-group">
+          {{ form.title }}
+          <label for="{{ form.title.id_for_label }}">Item / Description</label>
+          {% if form.title.errors %}<div class="field-error">{{ form.title.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.amount.id_for_label }}">Amount</label>
+          {{ form.amount }}
+          {% if form.amount.errors %}<div class="field-error">{{ form.amount.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.paid_by.id_for_label }}">Paid By (optional)</label>
+          {{ form.paid_by }}
+          {% if form.paid_by.errors %}<div class="field-error">{{ form.paid_by.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.note }}
+          <label for="{{ form.note.id_for_label }}">Note (optional)</label>
+          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">SAVE</button>
+          <a href="{% url 'expense_list' %}" class="btn-cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

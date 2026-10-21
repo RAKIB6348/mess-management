@@ -1,23 +1,58 @@
 {% extends "base.html" %}
-{% block title %}{% if member %}Edit{% else %}Add{% endif %} Member{% endblock %}
+{% block title %}{% if member %}Edit{% else %}Add{% endif %} Member &mdash; Mess Manager{% endblock %}
 {% block content %}
-<h1 class="h3 mb-3">{% if member %}Edit Member{% else %}Add Member{% endif %}</h1>
-<div class="card shadow-sm">
-  <div class="card-body">
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="mb-3">
-          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}
-            <div class="form-text text-danger">{{ field.errors|join:" " }}</div>
-          {% endif %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 fform">
+    <div class="form-card">
+      <header class="brand">
+        <div class="brand-logo">M</div>
+        <h1 class="brand-title">{% if member %}Edit Member{% else %}Add Member{% endif %}</h1>
+        <p class="brand-subtitle">{% if member %}Update resident details{% else %}Register a new resident{% endif %}</p>
+      </header>
+
+      {% if form.errors %}
+        <div class="alert-error">Please fix the errors below.</div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+          {{ form.name }}
+          <label for="{{ form.name.id_for_label }}">Name</label>
+          {% if form.name.errors %}<div class="field-error">{{ form.name.errors|join:", " }}</div>{% endif %}
         </div>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a href="{% url 'member_list' %}" class="btn btn-outline-secondary">Cancel</a>
-    </form>
+
+        <div class="form-group">
+          {{ form.phone }}
+          <label for="{{ form.phone.id_for_label }}">Phone</label>
+          {% if form.phone.errors %}<div class="field-error">{{ form.phone.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.email }}
+          <label for="{{ form.email.id_for_label }}">Email</label>
+          {% if form.email.errors %}<div class="field-error">{{ form.email.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.status.id_for_label }}">Status</label>
+          {{ form.status }}
+          {% if form.status.errors %}<div class="field-error">{{ form.status.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.note }}
+          <label for="{{ form.note.id_for_label }}">Note</label>
+          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">SAVE</button>
+          <a href="{% url 'member_list' %}" class="btn-cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}

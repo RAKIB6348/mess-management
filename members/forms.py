@@ -8,11 +8,9 @@ class MemberForm(forms.ModelForm):
         model = Member
         fields = ["name", "phone", "email", "status", "note"]
         widgets = {
-            "name": forms.TextInput(attrs={"class": "form-control"}),
-            "phone": forms.TextInput(attrs={"class": "form-control"}),
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "status": forms.Select(attrs={"class": "form-select"}),
-            "note": forms.Textarea(
-                attrs={"class": "form-control", "rows": 3}
-            ),
+            "name": forms.TextInput(attrs={"placeholder": " "}),
+            "phone": forms.TextInput(attrs={"placeholder": " "}),
+            "email": forms.EmailInput(attrs={"placeholder": " "}),
+            "status": forms.Select(),
+            "note": forms.Textarea(attrs={"placeholder": " ", "rows": 3}),
         }

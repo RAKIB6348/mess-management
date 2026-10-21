@@ -8,10 +8,12 @@ class MealForm(forms.ModelForm):
         model = Meal
         fields = ["member", "date", "count", "note"]
         widgets = {
-            "member": forms.Select(attrs={"class": "form-select"}),
+            "member": forms.Select(),
             "date": forms.DateInput(
-                attrs={"class": "form-control", "type": "date"}
+                attrs={"type": "date", "class": "flat"}
             ),
-            "count": forms.NumberInput(attrs={"class": "form-control"}),
-            "note": forms.TextInput(attrs={"class": "form-control"}),
+            "count": forms.NumberInput(
+                attrs={"class": "flat", "min": 1}
+            ),
+            "note": forms.TextInput(attrs={"placeholder": " "}),
         }

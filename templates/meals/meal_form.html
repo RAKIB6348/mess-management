@@ -1,23 +1,52 @@
 {% extends "base.html" %}
-{% block title %}{% if meal %}Edit{% else %}Record{% endif %} Meal{% endblock %}
+{% block title %}{% if meal %}Edit{% else %}Record{% endif %} Meal &mdash; Mess Manager{% endblock %}
 {% block content %}
-<h1 class="h3 mb-3">{% if meal %}Edit Meal{% else %}Record Meal{% endif %}</h1>
-<div class="card shadow-sm">
-  <div class="card-body">
-    <form method="post" novalidate>
-      {% csrf_token %}
-      {% for field in form %}
-        <div class="mb-3">
-          <label for="{{ field.id_for_label }}" class="form-label">{{ field.label }}</label>
-          {{ field }}
-          {% if field.errors %}
-            <div class="form-text text-danger">{{ field.errors|join:" " }}</div>
-          {% endif %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6 fform">
+    <div class="form-card">
+      <header class="brand">
+        <div class="brand-logo">&#127860;</div>
+        <h1 class="brand-title">{% if meal %}Edit Meal{% else %}Record Meal{% endif %}</h1>
+        <p class="brand-subtitle">Log a member's daily meal count</p>
+      </header>
+
+      {% if form.errors %}
+        <div class="alert-error">Please fix the errors below.</div>
+      {% endif %}
+
+      <form method="post" novalidate>
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.member.id_for_label }}">Member</label>
+          {{ form.member }}
+          {% if form.member.errors %}<div class="field-error">{{ form.member.errors|join:", " }}</div>{% endif %}
         </div>
-      {% endfor %}
-      <button type="submit" class="btn btn-primary">Save</button>
-      <a href="{% url 'meal_list' %}" class="btn btn-outline-secondary">Cancel</a>
-    </form>
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.date.id_for_label }}">Date</label>
+          {{ form.date }}
+          {% if form.date.errors %}<div class="field-error">{{ form.date.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          <label class="static-label" for="{{ form.count.id_for_label }}">Meal Count</label>
+          {{ form.count }}
+          {% if form.count.errors %}<div class="field-error">{{ form.count.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-group">
+          {{ form.note }}
+          <label for="{{ form.note.id_for_label }}">Note (optional)</label>
+          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-submit">SAVE</button>
+          <a href="{% url 'meal_list' %}" class="btn-cancel">Cancel</a>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
 {% endblock %}
