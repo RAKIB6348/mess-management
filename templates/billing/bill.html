@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Bill Split{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Bill Split</h1>
+
+<form method="get" class="row g-2 align-items-end mb-4">
+  <div class="col-auto">
+    <label for="month" class="form-label">Month</label>
+    <input type="month" id="month" name="month" value="{{ month_str }}" class="form-control">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" type="submit">Calculate</button>
+  </div>
+</form>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small text-uppercase">Total Expense</div>
+      <div class="fs-4 fw-bold">{{ summary.total_expense }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small text-uppercase">Total Meals</div>
+      <div class="fs-4 fw-bold">{{ summary.total_meals }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small text-uppercase">Meal Rate</div>
+      <div class="fs-4 fw-bold">{{ summary.meal_rate }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm"><div class="card-body">
+      <div class="text-muted small text-uppercase">Total Due</div>
+      <div class="fs-4 fw-bold">{{ summary.total_due }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="card shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover mb-0 align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>Member</th>
+          <th class="text-end">Meals</th>
+          <th class="text-end">Rate</th>
+          <th class="text-end">Share</th>
+          <th class="text-end">Paid</th>
+          <th class="text-end">Due</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for member_bill in summary.members %}
+        <tr>
+          <td>{{ member_bill.member }}</td>
+          <td class="text-end">{{ member_bill.meals }}</td>
+          <td class="text-end">{{ summary.meal_rate }}</td>
+          <td class="text-end">{{ member_bill.share }}</td>
+          <td class="text-end">{{ member_bill.paid }}</td>
+          <td class="text-end fw-bold">{{ member_bill.due }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot class="table-light">
+        <tr>
+          <td class="fw-bold">Total</td>
+          <td class="text-end fw-bold">{{ summary.total_meals }}</td>
+          <td></td>
+          <td class="text-end fw-bold">{{ summary.total_share }}</td>
+          <td class="text-end fw-bold">{{ summary.total_paid }}</td>
+          <td class="text-end fw-bold">{{ summary.total_due }}</td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>
+<p class="text-muted mt-3 small">
+  Meal rate = total bazaar expense &divide; total meals. Each member's share = meals &times; meal rate.
+</p>
+{% endblock %}

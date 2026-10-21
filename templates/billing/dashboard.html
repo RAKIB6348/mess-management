@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 class="h3 mb-3">Dashboard</h1>
+
+<form method="get" class="row g-2 align-items-end mb-4">
+  <div class="col-auto">
+    <label for="month" class="form-label">Month</label>
+    <input type="month" id="month" name="month" value="{{ year }}-{{ month|stringformat:'02d' }}" class="form-control">
+  </div>
+  <div class="col-auto">
+    <button class="btn btn-primary" type="submit">Show</button>
+  </div>
+</form>
+
+<div class="row g-3 mb-4">
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small text-uppercase">Active Members</div>
+      <div class="fs-3 fw-bold">{{ members_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small text-uppercase">Meal Entries</div>
+      <div class="fs-3 fw-bold">{{ meals_count }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small text-uppercase">Total Meals</div>
+      <div class="fs-3 fw-bold">{{ meals_total }}</div>
+    </div></div>
+  </div>
+  <div class="col-6 col-md-3">
+    <div class="card shadow-sm h-100"><div class="card-body">
+      <div class="text-muted small text-uppercase">Bazaar Expense</div>
+      <div class="fs-3 fw-bold">{{ expense_total }}</div>
+    </div></div>
+  </div>
+</div>
+
+<div class="row g-3">
+  <div class="col-lg-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-white">Recent Meals</div>
+      <ul class="list-group list-group-flush">
+        {% for meal in recent_meals %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{ meal.member }} <span class="text-muted">{{ meal.date }}</span></span>
+            <span class="badge bg-primary">{{ meal.count }}</span>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted text-center">No meals yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <div class="col-lg-6">
+    <div class="card shadow-sm h-100">
+      <div class="card-header bg-white">Recent Expenses</div>
+      <ul class="list-group list-group-flush">
+        {% for expense in recent_expenses %}
+          <li class="list-group-item d-flex justify-content-between">
+            <span>{{ expense.title }} <span class="text-muted">{{ expense.date }}</span></span>
+            <span class="badge bg-secondary">{{ expense.amount }}</span>
+          </li>
+        {% empty %}
+          <li class="list-group-item text-muted text-center">No expenses yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}
