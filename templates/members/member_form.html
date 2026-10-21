@@ -17,35 +17,11 @@
       <form method="post" novalidate>
         {% csrf_token %}
 
-        <div class="form-group">
-          {{ form.name }}
-          <label for="{{ form.name.id_for_label }}">Name</label>
-          {% if form.name.errors %}<div class="field-error">{{ form.name.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.phone }}
-          <label for="{{ form.phone.id_for_label }}">Phone</label>
-          {% if form.phone.errors %}<div class="field-error">{{ form.phone.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.email }}
-          <label for="{{ form.email.id_for_label }}">Email</label>
-          {% if form.email.errors %}<div class="field-error">{{ form.email.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          <label class="static-label" for="{{ form.status.id_for_label }}">Status</label>
-          {{ form.status }}
-          {% if form.status.errors %}<div class="field-error">{{ form.status.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.note }}
-          <label for="{{ form.note.id_for_label }}">Note</label>
-          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
-        </div>
+        {% include "partials/field.html" with field=form.name label="Name" %}
+        {% include "partials/field.html" with field=form.phone label="Phone" %}
+        {% include "partials/field.html" with field=form.email label="Email" %}
+        {% include "partials/field.html" with field=form.status label="Status" %}
+        {% include "partials/field.html" with field=form.note label="Note (optional)" %}
 
         <div class="form-actions">
           <button type="submit" class="btn-submit">SAVE</button>

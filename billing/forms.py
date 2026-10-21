@@ -9,11 +9,9 @@ class PaymentForm(forms.ModelForm):
         fields = ["member", "date", "amount", "note"]
         widgets = {
             "member": forms.Select(),
-            "date": forms.DateInput(
-                attrs={"type": "date", "class": "flat"}
-            ),
+            "date": forms.DateInput(attrs={"type": "date"}),
             "amount": forms.NumberInput(
-                attrs={"class": "flat", "step": "0.01", "min": "0"}
+                attrs={"placeholder": " ", "step": "0.01", "min": "0"}
             ),
             "note": forms.TextInput(attrs={"placeholder": " "}),
         }

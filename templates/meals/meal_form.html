@@ -17,29 +17,10 @@
       <form method="post" novalidate>
         {% csrf_token %}
 
-        <div class="form-group">
-          <label class="static-label" for="{{ form.member.id_for_label }}">Member</label>
-          {{ form.member }}
-          {% if form.member.errors %}<div class="field-error">{{ form.member.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          <label class="static-label" for="{{ form.date.id_for_label }}">Date</label>
-          {{ form.date }}
-          {% if form.date.errors %}<div class="field-error">{{ form.date.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          <label class="static-label" for="{{ form.count.id_for_label }}">Meal Count</label>
-          {{ form.count }}
-          {% if form.count.errors %}<div class="field-error">{{ form.count.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.note }}
-          <label for="{{ form.note.id_for_label }}">Note (optional)</label>
-          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
-        </div>
+        {% include "partials/field.html" with field=form.member label="Member" %}
+        {% include "partials/field.html" with field=form.date label="Date" %}
+        {% include "partials/field.html" with field=form.count label="Meal Count" %}
+        {% include "partials/field.html" with field=form.note label="Note (optional)" %}
 
         <div class="form-actions">
           <button type="submit" class="btn-submit">SAVE</button>

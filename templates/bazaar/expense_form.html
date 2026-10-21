@@ -17,35 +17,11 @@
       <form method="post" novalidate>
         {% csrf_token %}
 
-        <div class="form-group">
-          <label class="static-label" for="{{ form.date.id_for_label }}">Date</label>
-          {{ form.date }}
-          {% if form.date.errors %}<div class="field-error">{{ form.date.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.title }}
-          <label for="{{ form.title.id_for_label }}">Item / Description</label>
-          {% if form.title.errors %}<div class="field-error">{{ form.title.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          <label class="static-label" for="{{ form.amount.id_for_label }}">Amount</label>
-          {{ form.amount }}
-          {% if form.amount.errors %}<div class="field-error">{{ form.amount.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          <label class="static-label" for="{{ form.paid_by.id_for_label }}">Paid By (optional)</label>
-          {{ form.paid_by }}
-          {% if form.paid_by.errors %}<div class="field-error">{{ form.paid_by.errors|join:", " }}</div>{% endif %}
-        </div>
-
-        <div class="form-group">
-          {{ form.note }}
-          <label for="{{ form.note.id_for_label }}">Note (optional)</label>
-          {% if form.note.errors %}<div class="field-error">{{ form.note.errors|join:", " }}</div>{% endif %}
-        </div>
+        {% include "partials/field.html" with field=form.date label="Date" %}
+        {% include "partials/field.html" with field=form.title label="Item / Description" %}
+        {% include "partials/field.html" with field=form.amount label="Amount" %}
+        {% include "partials/field.html" with field=form.paid_by label="Paid By (optional)" %}
+        {% include "partials/field.html" with field=form.note label="Note (optional)" %}
 
         <div class="form-actions">
           <button type="submit" class="btn-submit">SAVE</button>
