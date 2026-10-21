@@ -8,7 +8,15 @@ class ExpenseForm(forms.ModelForm):
         model = Expense
         fields = ["date", "title", "amount", "paid_by", "note"]
         widgets = {
-            "date": forms.DateInput(attrs={"type": "date"}),
+            "date": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={
+                    "type": "text",
+                    "placeholder": " ",
+                    "onfocus": "(this.type='date')",
+                    "onblur": "if(!this.value) this.type='text'",
+                },
+            ),
             "title": forms.TextInput(attrs={"placeholder": " "}),
             "amount": forms.NumberInput(
                 attrs={"placeholder": " ", "step": "0.01", "min": "0"}

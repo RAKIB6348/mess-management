@@ -9,7 +9,15 @@ class MealForm(forms.ModelForm):
         fields = ["member", "date", "count", "note"]
         widgets = {
             "member": forms.Select(),
-            "date": forms.DateInput(attrs={"type": "date"}),
+            "date": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={
+                    "type": "text",
+                    "placeholder": " ",
+                    "onfocus": "(this.type='date')",
+                    "onblur": "if(!this.value) this.type='text'",
+                },
+            ),
             "count": forms.NumberInput(
                 attrs={"placeholder": " ", "min": 1}
             ),
